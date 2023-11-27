@@ -12,15 +12,22 @@ namespace Lab9
         /// <returns>Storage</returns>
         public static Storage SearchParts(Storage storage, string searchValue, SearchDelegate searchDelegate)
         {
-            Storage tempStorage = new Storage();
-            for (int i = 0; i < storage.SpareParts.Count(); i++)
+            if (storage != null && searchDelegate != null)
             {
-                if (searchDelegate(storage.SpareParts[i], searchValue))
+                Storage tempStorage = new Storage();
+                for (int i = 0; i < storage.SpareParts.Count(); i++)
                 {
-                    tempStorage.AddPart(storage.SpareParts[i]); 
+                    if (searchDelegate(storage.SpareParts[i], searchValue))
+                    {
+                        tempStorage.AddPart(storage.SpareParts[i]);
+                    }
                 }
+                return tempStorage;
             }
-            return tempStorage;
+            else
+            {
+                throw new ArgumentNullException("Element can not be null");
+            }
         }
     }
 }
